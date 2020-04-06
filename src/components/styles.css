@@ -1,0 +1,96 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --font-family: "Circular Std", "Inter", Helvetica, Arial, sans-serif;
+  --lavender: #beb2e0;
+  --dark-lavender: #736a8d;
+  --gradient-pink: linear-gradient(173deg, #ff48f8 0%, #c300f3 115%);
+  --input-height: 3rem;
+}
+html,
+body {
+  height: 100vh;
+}
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 16px;
+}
+.layout {
+  height: 100vh;
+  padding: 0 2rem;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-gap: 3rem;
+}
+.logo {
+  line-height: 1.2;
+  letter-spacing: -0.025rem;
+  display: inline-block;
+  color: #f036f7; /* this is intentionally a different pink than the start value of the gradient, as that color on it's own is too bright */
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+@supports (background-clip: text) {
+  .logo {
+    color: transparent;
+    background-image: var(--gradient-pink);
+    background-clip: text;
+  }
+}
+.headline {
+  line-height: 1.25;
+  letter-spacing: -0.025rem;
+  color: #614ea6;
+  font-size: 1.75rem;
+}
+
+.signup__tagline {
+  color: var(--dark-lavender);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.form {
+  display: grid;
+  grid-template-rows: repeat(2, var(--input-height));
+  grid-gap: 0.5rem;
+  /* grid-template-rows: var(--input-height);
+  grid-template-columns: 1fr auto; */
+}
+.form input,
+.form button {
+  letter-spacing: 0.0125rem;
+  font-family: var(--font-family);
+  font-size: 1.25rem;
+  width: 100%;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  height: var(--input-height);
+}
+.form input {
+  background: #fff;
+  color: var(--dark-lavender);
+  border: 2px solid var(--lavender);
+  margin-right: 0.5rem;
+}
+.form input:focus {
+  color: var(--dark-lavender);
+  border-color: var(--dark-lavender);
+  box-shadow: 0 0 0 3px #e2d8ff;
+  outline: none;
+}
+.form input::placeholder {
+  color: var(--lavender);
+}
+.form button {
+  display: block;
+  border: none;
+  background-image: var(--gradient-pink);
+  color: #fff;
+}
+.form button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #ffaaec;
+}
