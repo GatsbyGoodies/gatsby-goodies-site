@@ -5,17 +5,19 @@
   --font-family: "Circular Std", "Inter", Helvetica, Arial, sans-serif;
   --lavender: #beb2e0;
   --dark-lavender: #736a8d;
-  --gradient-pink: linear-gradient(173deg, #ff48f8 0%, #c300f3 115%);
-  --input-height: 3rem;
+  --gradient-pink: linear-gradient(173deg, #ff48f8 0%, #c300f3 110%);
+  --input-height: 2.5rem;
 }
 html,
 body {
   height: 100vh;
+  font-size: 16px;
 }
 body {
   margin: 0;
   font-family: var(--font-family);
-  font-size: 16px;
+  background-image: url(https://assets.website-files.com/5bfd1275cc56e15ce750b18e/5c289afb9a15755148893ac9_87.%20Spacy.jpg);
+  background-size: cover;
 }
 .layout {
   height: 100vh;
@@ -23,14 +25,16 @@ body {
   display: grid;
   align-content: center;
   justify-content: center;
-  grid-gap: 3rem;
+  grid-gap: 2.5rem;
+  margin: 0 auto;
+  max-width: 30rem;
 }
 .logo {
   line-height: 1.2;
   letter-spacing: -0.025rem;
   display: inline-block;
   color: #f036f7; /* this is intentionally a different pink than the start value of the gradient, as that color on it's own is too bright */
-  font-size: 1.7rem;
+  font-size: 1.75rem;
   font-weight: 500;
 }
 @supports (background-clip: text) {
@@ -50,7 +54,7 @@ body {
 .signup__tagline {
   color: var(--dark-lavender);
   margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 .form {
   display: grid;
@@ -63,7 +67,7 @@ body {
 .form button {
   letter-spacing: 0.0125rem;
   font-family: var(--font-family);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   width: 100%;
   border-radius: 5px;
   padding: 0.5rem 1rem;
@@ -85,6 +89,7 @@ body {
   color: var(--lavender);
 }
 .form button {
+  cursor: pointer;
   display: block;
   border: none;
   background-image: var(--gradient-pink);
@@ -93,4 +98,28 @@ body {
 .form button:focus {
   outline: none;
   box-shadow: 0 0 0 3px #ffaaec;
+}
+
+@media screen and (min-width: 20rem) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+  }
+}
+@media screen and (min-width: 35rem) {
+  :root {
+    --input-height: 2.5rem;
+  }
+  .form {
+    grid-template-rows: var(--input-height);
+    grid-template-columns: 1fr auto;
+  }
+  .form button,
+  .form input {
+    font-size: 1rem;
+  }
+}
+@media screen and (min-width: 50rem) {
+  html {
+    font-size: 22px;
+  }
 }

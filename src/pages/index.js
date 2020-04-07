@@ -8,8 +8,7 @@ const IndexPage = () => (
     <SEO title="Home" />
     <div className="logo">gatsby goodies</div>
     <div className="headline">
-      Premium Gatsby themes to kickstart your blog, portfolio, or e-commerce
-      store.
+      Premium Gatsby themes to kickstart your blog, portfolio, or online store.
     </div>
     <div className="signup">
       <div className="signup__tagline">
