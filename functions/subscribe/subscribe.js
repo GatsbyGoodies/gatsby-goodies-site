@@ -3,8 +3,8 @@ const AWS = require("aws-sdk")
 
 AWS.config.update({
   region: "us-east-2",
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.ACCESS_KEY,
+  secretAccessKey: process.env.SECRET_KEY,
 })
 
 const table = "email-subscribers"
