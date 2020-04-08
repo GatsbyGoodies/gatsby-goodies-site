@@ -3,23 +3,40 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <div className="logo">gatsby goodies</div>
-    <div className="headline">
-      Premium Gatsby themes to kickstart your blog, portfolio, or online store.
-    </div>
-    <div className="signup">
-      <div className="signup__tagline">
-        Sign up to get notified when it's ready
+const IndexPage = () => {
+  const email = { email: "testing@email.com" }
+  const subscribe = async e => {
+    e.preventDefault()
+    try {
+      const customer = await fetch("/.netlify/functions/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(email),
+      })
+      console.log(customer)
+    } catch (err) {
+      console.log("u suck fatty: ", err)
+    }
+  }
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <div className="logo">gatsby goodies</div>
+      <div className="headline">
+        Premium Gatsby themes to kickstart your blog, portfolio, or online
+        store.
       </div>
-      <form className="form">
-        <input type="email" name="email" placeholder="youremail@email.com" />
-        <button>Get Notified</button>
-      </form>
-    </div>
-  </Layout>
-)
+      <div className="signup">
+        <div className="signup__tagline">
+          Sign up to get notified when it's ready
+        </div>
+        <form className="form">
+          <input type="email" name="email" placeholder="youremail@email.com" />
+          <button onClick={subscribe}>Get Notified</button>
+        </form>
+      </div>
+    </Layout>
+  )
+}
 
 export default IndexPage
