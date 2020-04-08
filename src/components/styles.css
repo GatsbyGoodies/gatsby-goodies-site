@@ -1,5 +1,12 @@
 * {
   box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+@-moz-document url-prefix() {
+  body {
+    font-weight: lighter !important;
+  }
 }
 :root {
   --font-family: "Circular Std", "Inter", Helvetica, Arial, sans-serif;
@@ -120,6 +127,6 @@ body {
 }
 @media screen and (min-width: 50rem) {
   html {
-    font-size: 22px;
+    font-size: 24px;
   }
 }
