@@ -1,19 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const IndexPage = () => {
-  const email = { email: "testing@email.com" }
+  const [email, setEmail] = useState("")
+  const handleChange = e => setEmail(e.target.value)
   const subscribe = async e => {
     e.preventDefault()
     try {
       const customer = await fetch("/.netlify/functions/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(email),
+        body: JSON.stringify({ email }),
       })
-      console.log(customer)
+      const json = await customer.json()
+      console.log(json)
     } catch (err) {
       console.log("u suck fatty: ", err)
     }
@@ -31,7 +33,13 @@ const IndexPage = () => {
           Sign up to get notified when it's ready
         </div>
         <form className="form">
-          <input type="email" name="email" placeholder="youremail@email.com" />
+          <input
+            onChange={handleChange}
+            value={email}
+            type="email"
+            name="email"
+            placeholder="youremail@email.com"
+          />
           <button onClick={subscribe}>Get Notified</button>
         </form>
       </div>

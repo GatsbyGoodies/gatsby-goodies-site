@@ -1,3 +1,4 @@
+const emailValidator = require("email-validator")
 const AWS = require("aws-sdk")
 
 AWS.config.update({
@@ -9,33 +10,61 @@ AWS.config.update({
 const table = "email-subscribers"
 const docClient = new AWS.DynamoDB.DocumentClient()
 
-console.log(process.env.AWS_ACCESS_KEY)
-
-exports.handler = async (event, context, callback) => {
+exports.handler = function(event, context, callback) {
   if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method not allowed" }
+    console.log("METHOD NOT ALLOWED")
+    return callback(null, {
+      statusCode: 405,
+      body: JSON.stringify({ msg: "Method not allowed" }),
+    })
   }
-  const { body } = JSON.parse(event)
-  console.log("WOOOO: ", body)
+  const body = JSON.parse(event.body)
+  const email = body.email
+  console.log("EMAIL: ", email)
+  const isValidEmail = emailValidator.validate(email)
+  if (!isValidEmail) {
+    console.log("NOT VALID EMAIL: ")
+    return callback(null, {
+      statusCode: 400,
+      body: JSON.stringify({ msg: "Not a valid email address" }),
+    })
+  }
   const params = {
     TableName: table,
     Item: {
-      email: body.email,
+      email,
     },
     ConditionExpression: "attribute_not_exists(email)",
   }
-  try {
-    const results = await docClient.put(params).promise()
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(results),
+
+  docClient.put(params, function(err, data) {
+    if (err) {
+      let response
+      if (err.code === "ConditionalCheckFailedException") {
+        console.log("EMAIL TAKEN")
+        response = {
+          statusCode: 400,
+          body: JSON.stringify({
+            msg: "This email has already been subscribed",
+          }),
+        }
+      } else {
+        console.log("ERR: ", err)
+        response = {
+          statusCode: 400,
+          body: JSON.stringify({
+            msg: "There was an error subscribing this email address",
+          }),
+        }
+      }
+      return callback(null, response)
+    } else {
+      console.log("NICE: ", data)
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify({ msg: "Thanks for subscribing!" }),
+      }
+      return callback(null, response)
     }
-    return callback(null, response)
-  } catch (err) {
-    const response = {
-      statusCode: 400,
-      body: JSON.stringify({ err }),
-    }
-    return callback(null, response)
-  }
+  })
 }
