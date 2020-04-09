@@ -9,11 +9,14 @@ const IndexPage = () => {
   const subscribe = async e => {
     e.preventDefault()
     try {
-      const customer = await fetch("/.netlify/functions/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: { email },
-      })
+      const customer = await fetch(
+        "https://sfiu7fqu9j.execute-api.us-east-2.amazonaws.com/dev",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: { email },
+        }
+      )
       const json = await customer.json()
       console.log(json)
     } catch (err) {
