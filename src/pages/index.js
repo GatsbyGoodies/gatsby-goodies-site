@@ -12,12 +12,12 @@ const IndexPage = () => {
       const customer = await fetch("/.netlify/functions/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: { email },
       })
       const json = await customer.json()
       console.log(json)
     } catch (err) {
-      console.log("u suck fatty: ", err)
+      console.log("Error processing request", err)
     }
   }
   return (

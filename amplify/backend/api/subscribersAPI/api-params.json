@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/subscribe",
+            "lambdaFunction": "subscribeFUNC",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "subscribersAPI",
+    "apiName": "subscribersAPI",
+    "functionArns": [
+        {
+            "lambdaFunction": "subscribeFUNC"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-gatsby-goodies-site-dev-194620-authRole",
+        "unAuthRoleName": "amplify-gatsby-goodies-site-dev-194620-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "subscribeFUNC",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

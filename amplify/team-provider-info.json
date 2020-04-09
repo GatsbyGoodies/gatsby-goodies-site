@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-gatsby-goodies-site-dev-194620-authRole",
+            "UnauthRoleArn": "arn:aws:iam::162400637702:role/amplify-gatsby-goodies-site-dev-194620-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::162400637702:role/amplify-gatsby-goodies-site-dev-194620-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-gatsby-goodies-site-dev-194620-deployment",
+            "UnauthRoleName": "amplify-gatsby-goodies-site-dev-194620-unauthRole",
+            "StackName": "amplify-gatsby-goodies-site-dev-194620",
+            "StackId": "arn:aws:cloudformation:us-east-2:162400637702:stack/amplify-gatsby-goodies-site-dev-194620/27711e40-79f3-11ea-8ba5-060a435a9e52",
+            "AmplifyAppId": "dwq34pb6d9pbf"
+        }
+    }
+}
