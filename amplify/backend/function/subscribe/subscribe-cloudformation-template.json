@@ -10,13 +10,13 @@
 		"env": {
 			"Type": "String"
 		},
-		"storagesubscribersDBName": {
+		"storagesubscribedbName": {
 			"Type": "String",
-			"Default": "storagesubscribersDBName"
+			"Default": "storagesubscribedbName"
 		},
-		"storagesubscribersDBArn": {
+		"storagesubscribedbArn": {
 			"Type": "String",
-			"Default": "storagesubscribersDBArn"
+			"Default": "storagesubscribedbArn"
 		}
 	},
 	"Conditions": {
@@ -75,8 +75,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-gatsby-goodies-site-dev-194620-deployment",
-					"S3Key": "amplify-builds/subscribeFUNC-58773246544454546b31-build.zip"
+					"S3Bucket": "amplify-gatsbygoodies-develop-140145-deployment",
+					"S3Key": "amplify-builds/subscribe-556e3159697a2f685738-build.zip"
 				}
 			}
 		},
@@ -86,12 +86,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"gatsbygoodiessiteLambdaRolef38e9357",
+						"gatsbygoodiesLambdaRole6082d60a",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"gatsbygoodiessiteLambdaRolef38e9357",
+									"gatsbygoodiesLambdaRole6082d60a",
 									"-",
 									{
 										"Ref": "env"
@@ -170,14 +170,14 @@
 							],
 							"Resource": [
 								{
-									"Ref": "storagesubscribersDBArn"
+									"Ref": "storagesubscribedbArn"
 								},
 								{
 									"Fn::Join": [
 										"/",
 										[
 											{
-												"Ref": "storagesubscribersDBArn"
+												"Ref": "storagesubscribedbArn"
 											},
 											"index/*"
 										]

@@ -1,4 +1,8 @@
 const AWS = require("aws-sdk")
+const emailValidator = require("email-validator")
+var awsServerlessExpressMiddleware = require("aws-serverless-express/middleware")
+var bodyParser = require("body-parser")
+var express = require("express")
 
 AWS.config.update({ region: process.env.TABLE_REGION })
 
@@ -10,10 +14,8 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 }
 
 const userIdPresent = false // TODO: update in case is required to use that definition
-
 const path = "/subscribe"
 const UNAUTH = "UNAUTH"
-
 // declare a new express app
 var app = express()
 app.use(bodyParser.json())
@@ -29,26 +31,38 @@ app.use(function(req, res, next) {
   next()
 })
 
+/************************************
+ * HTTP post method for insert object *
+ *************************************/
+
 app.post(path, function(req, res) {
   if (userIdPresent) {
     req.body["userId"] =
       req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH
   }
-
+  const { email } = req.body
+  const isValidEmail = emailValidator.validate(email)
+  if (!isValidEmail) {
+    res.json({ type: "INVALID_EMAIL" })
+  }
   let putItemParams = {
     TableName: tableName,
-    Item: req.body,
+    Item: { email },
     ConditionExpression: "attribute_not_exists(email)",
   }
   dynamodb.put(putItemParams, (err, data) => {
     if (err) {
       res.statusCode = 500
-      res.json({ error: err, url: req.url, body: req.body })
+      if (err.code === "ConditionalCheckFailedException") {
+        res.json({ type: "EMAIL_EXISTS" })
+      }
+      res.json({ type: "ERROR" })
     } else {
-      res.json({ success: "post call succeed!", url: req.url, data: data })
+      res.json({ type: "SUCCESS" })
     }
   })
 })
+
 app.listen(3000, function() {
   console.log("App started")
 })

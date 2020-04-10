@@ -2,33 +2,34 @@
     "paths": [
         {
             "name": "/subscribe",
-            "lambdaFunction": "subscribeFUNC",
+            "lambdaFunction": "subscribe",
             "privacy": {
                 "open": true
             }
         }
     ],
-    "resourceName": "subscribersAPI",
-    "apiName": "subscribersAPI",
+    "resourceName": "api",
+    "apiName": "api",
     "functionArns": [
         {
-            "lambdaFunction": "subscribeFUNC"
+            "lambdaFunction": "subscribe"
         }
     ],
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-gatsby-goodies-site-dev-194620-authRole",
-        "unAuthRoleName": "amplify-gatsby-goodies-site-dev-194620-unauthRole"
+        "authRoleName": "amplify-gatsbygoodies-dev-132603-authRole",
+        "unAuthRoleName": "amplify-gatsbygoodies-dev-132603-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "subscribeFUNC",
+            "resourceName": "subscribe",
             "attributes": [
                 "Name",
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "ed3024ff"
 }
