@@ -3,6 +3,7 @@ const emailValidator = require("email-validator")
 const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware")
 const bodyParser = require("body-parser")
 const express = require("express")
+const discord = require("./discord")
 
 AWS.config.update({ region: process.env.TABLE_REGION })
 
@@ -39,7 +40,7 @@ app.post(path, function(req, res) {
     Item: { email },
     ConditionExpression: "attribute_not_exists(email)",
   }
-  dynamodb.put(putItemParams, (err, data) => {
+  dynamodb.put(putItemParams, async (err, data) => {
     if (err) {
       res.statusCode = 500
       if (err.code === "ConditionalCheckFailedException") {
@@ -47,6 +48,7 @@ app.post(path, function(req, res) {
       }
       res.json({ type: "ERROR" })
     } else {
+      await discord.sendWebhook(email)
       res.json({ type: "SUCCESS" })
     }
   })
