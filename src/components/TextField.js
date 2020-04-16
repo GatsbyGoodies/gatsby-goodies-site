@@ -9,7 +9,7 @@ export default asField((props) => {
     <div>
       {label && <label>{label}</label>}
       <BasicText disabled={disabled} {...rest} />
-      {!noError && error && <div>{error}</div>}
+      {!noError && error && <div className='text-field-error'>{error}</div>}
     </div>
   )
 })

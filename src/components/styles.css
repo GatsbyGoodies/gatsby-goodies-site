@@ -96,6 +96,12 @@ body {
 .button {
   font-weight: bold;
 }
+
+.text-field-error {
+  margin-top: 8px;
+  color: red;
+}
+
 .form input {
   background: #fff;
   color: var(--dark-lavender);
