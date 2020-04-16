@@ -11,7 +11,7 @@ import emailField from '../data/emailField'
 
 Amplify.configure(awsconfig)
 
-const IndexPage = () => {
+export default () => {
   const [loading, setLoading] = useState(false)
   const [feedback, setFeedback] = useState('DEFAULT')
   const formApi = useRef()
@@ -27,6 +27,7 @@ const IndexPage = () => {
       const res = await API.post('api', '/subscribe', data)
       setLoading(false)
       setFeedback(res.type)
+      formApi.current.reset()
     } catch (error) {
       setLoading(false)
       setFeedback(error.type)
@@ -45,7 +46,7 @@ const IndexPage = () => {
         <div className={feedbackMap[feedback].className}>
           {feedbackMap[feedback].message}
         </div>
-        <Form className='form' onSubmit={subscribe} apiRef={formApi}>
+        <Form className='form' onSubmit={subscribe} apiRef={formApi} allowEmptyStrings>
           <TextField {...emailField} />
           <button className='button'>
             <span style={{ opacity: loading ? 0 : 1 }}>Get Notified</span>
@@ -56,5 +57,3 @@ const IndexPage = () => {
     </Layout>
   )
 }
-
-export default IndexPage
