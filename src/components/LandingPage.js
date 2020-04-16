@@ -37,10 +37,10 @@ const IndexPage = () => {
     <Layout>
       <SEO title='Home' />
       <div className='logo'>gatsby goodies</div>
-      <div className='headline'>
+      <h1 className='headline'>
         Premium Gatsby themes to kickstart your blog, portfolio, or online
         store.
-      </div>
+      </h1>
       <div className='signup'>
         <div className={feedbackMap[feedback].className}>
           {feedbackMap[feedback].message}
